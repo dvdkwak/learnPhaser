@@ -1,4 +1,4 @@
-import { Boot } from './scenes/boot';
+import { David } from './scenes/david';
 import { AUTO, Game } from 'phaser';
 
 const config = {
@@ -11,8 +11,14 @@ const config = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
   },
+  physics: {
+    default: 'arcade',
+    arcade: {
+      debug: true
+    }
+  },
   scene: [
-    Boot
+    David
   ]
 };
 
