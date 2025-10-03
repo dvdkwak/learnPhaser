@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import Player from './../objects/player';
+import Stone from './../objects/stone';
 
 export class David extends Scene
 {
@@ -8,32 +9,26 @@ export class David extends Scene
   }
 
   preload() {
-    console.log('This is the David scene');
     this.load.image('poppetje', './assets/poppetje.png');
+    this.load.image('steentje', './assets/stone.png');
   }
 
   create() {
     this.character = new Player(this, 100, 100, 'poppetje');
     this.cursors = this.input.keyboard.createCursorKeys();
-    console.log(this.character.texture);
-    console.log(this.character.body);
-    this.character.body.velocity.setLength(100);
+
+    this.stone = new Stone(this, 200, 200, 'steentje');
+    this.stone.body.height = 10;
+    this.stone.body.setOffset(0, 20);
+    console.log(this.stone.body);
+
+    this.physics.add.collider(this.character, this.stone);
+
+    this.character.create();
   }
 
   // This updates every frame
   update() {
-    this.character.body.setVelocity(0);
-    if(this.cursors.right.isDown) {
-      this.character.body.setVelocityX(100);
-    }
-    if(this.cursors.left.isDown) {
-      this.character.body.setVelocityX(-100);
-    }
-    if(this.cursors.up.isDown) {
-      this.character.body.setVelocityY(-100);
-    }
-    if(this.cursors.down.isDown) {
-      this.character.body.setVelocityY(100);
-    }
+    this.character.update(this.cursors);
   }
 }
